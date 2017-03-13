@@ -25,10 +25,10 @@ namespace TicTacToeMiniMax
 
             while (tempBoard[x, y] != 0)
             {
-                x = rand.Next(0, 2);
-                y = rand.Next(0, 2);
+                x = rand.Next(0, 3);
+                y = rand.Next(0, 3);
             }
-            board.placeBrick(x, y, player);
+            board.placeBrick(player, x, y);
         }
     }
 }
