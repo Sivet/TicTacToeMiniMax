@@ -52,7 +52,7 @@ namespace TicTacToeMiniMax
             { //de 3 til lodret venstre er ens
                 return TicTacToeBoard[0, 0];
             }
-            if (TicTacToeBoard[1, 0] == TicTacToeBoard[1, 1] && TicTacToeBoard[1, 0] == TicTacToeBoard[1, 2] && TicTacToeBoard[1, 0] != 0)
+            if (TicTacToeBoard[0, 1] == TicTacToeBoard[1, 1] && TicTacToeBoard[0, 1] == TicTacToeBoard[1, 2] && TicTacToeBoard[0, 1] != 0)
             { //de 3 i lodret midten er ens
                 return TicTacToeBoard[1, 0];
             }
@@ -73,6 +73,16 @@ namespace TicTacToeMiniMax
         public void placeBrick(int player, int x, int y)
         {
             TicTacToeBoard[x, y] = player;
+        }
+        public void ClearBoard()
+        {
+            for (int x = 0; x < 3; x++)
+            {
+                for (int y = 0; y < 3; y++)
+                {
+                    TicTacToeBoard[x, y] = 0;
+                }
+            }
         }
 
     }

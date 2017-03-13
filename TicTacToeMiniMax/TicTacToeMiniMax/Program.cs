@@ -22,13 +22,12 @@ namespace TicTacToeMiniMax
         }
         public void Run()
         {
-            FIFOPlayer player1 = new FIFOPlayer(board, 1);
-            RandomPlayer player2 = new RandomPlayer(board, 2);
+            RandomPlayer player1 = new RandomPlayer(board, 1);
+            FIFOPlayer player2 = new FIFOPlayer(board, 2);
 
             for (int i = 0; i < 10; i++)
             {
                 int turnCounter = 0;
-
                 while (board.checkForWin() == -1)
                 {
                     player1.Play();
@@ -48,7 +47,7 @@ namespace TicTacToeMiniMax
                 {
                     player1Wins++;
                 }
-                if (board.checkForWin() == 0)
+                if (board.checkForWin() == 2)
                 {
                     player2Wins++;
                 }
@@ -56,6 +55,8 @@ namespace TicTacToeMiniMax
                 {
                     drawWin++;
                 }
+                
+                board.ClearBoard();
             }
 
             Console.WriteLine("Player 1 won: " + player1Wins);
