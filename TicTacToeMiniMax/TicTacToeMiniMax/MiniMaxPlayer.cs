@@ -75,7 +75,7 @@ namespace TicTacToeMiniMax
                     {
                         if (tempBoard[x, y] == 0)
                         {
-                            tempBoard[x, y] = player;
+                            tempBoard[x, y] = 1; //det skal da være den her som rykker modstanderen, ellers rykker jeg to gange jo...
                             tempScore = Max();
                             if (tempScore < bestScore)
                             {
