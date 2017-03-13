@@ -34,41 +34,41 @@ namespace TicTacToeMiniMax
             }
             return tempBoard;
         }
-        public bool checkForWin()
+        public int checkForWin()
         {
-            if (TicTacToeBoard[0, 0] == TicTacToeBoard[0, 1] && TicTacToeBoard[0, 1] == TicTacToeBoard[0, 2] && TicTacToeBoard[0, 0] != 0)
+            if (TicTacToeBoard[0, 0] == TicTacToeBoard[0, 1] && TicTacToeBoard[0, 0] == TicTacToeBoard[0, 2] && TicTacToeBoard[0, 0] != 0)
             { //de 3 vandret øverste er ens
-                return true;
+                return TicTacToeBoard[0, 0];
             }
-            if (TicTacToeBoard[1, 0] == TicTacToeBoard[1, 1] && TicTacToeBoard[1, 1] == TicTacToeBoard[1, 2] && TicTacToeBoard[1, 0] != 0)
+            if (TicTacToeBoard[1, 0] == TicTacToeBoard[1, 1] && TicTacToeBoard[1, 0] == TicTacToeBoard[1, 2] && TicTacToeBoard[1, 0] != 0)
             { //de 3  vandret midten er ens
-                return true;
+                return TicTacToeBoard[1, 0];
             }
-            if (TicTacToeBoard[2, 0] == TicTacToeBoard[2, 1] && TicTacToeBoard[2, 1] == TicTacToeBoard[2, 2] && TicTacToeBoard[2, 0] != 0)
+            if (TicTacToeBoard[2, 0] == TicTacToeBoard[2, 1] && TicTacToeBoard[2, 0] == TicTacToeBoard[2, 2] && TicTacToeBoard[2, 0] != 0)
             { //de 3 vandret nederste er ens
-                return true;
+                return TicTacToeBoard[2, 0];
             }
-            if (TicTacToeBoard[0, 0] == TicTacToeBoard[1, 0]  && TicTacToeBoard[1, 0] == TicTacToeBoard[2, 0] && TicTacToeBoard[0, 0] != 0)
+            if (TicTacToeBoard[0, 0] == TicTacToeBoard[1, 0]  && TicTacToeBoard[0, 0] == TicTacToeBoard[2, 0] && TicTacToeBoard[0, 0] != 0)
             { //de 3 til lodret venstre er ens
-                return true;
+                return TicTacToeBoard[0, 0];
             }
-            if (TicTacToeBoard[1, 0] == TicTacToeBoard[1, 1] && TicTacToeBoard[1, 1] == TicTacToeBoard[1, 2] && TicTacToeBoard[1, 0] != 0)
+            if (TicTacToeBoard[1, 0] == TicTacToeBoard[1, 1] && TicTacToeBoard[1, 0] == TicTacToeBoard[1, 2] && TicTacToeBoard[1, 0] != 0)
             { //de 3 i lodret midten er ens
-                return true;
+                return TicTacToeBoard[1, 0];
             }
-            if (TicTacToeBoard[2, 0] == TicTacToeBoard[2, 1] && TicTacToeBoard[2, 1] == TicTacToeBoard[2, 2] && TicTacToeBoard[2, 0] != 0)
+            if (TicTacToeBoard[2, 0] == TicTacToeBoard[2, 1] && TicTacToeBoard[2, 0] == TicTacToeBoard[2, 2] && TicTacToeBoard[2, 0] != 0)
             { //de 3 til lodret højre er ens
-                return true;
+                return TicTacToeBoard[2, 0];
             }
-            if (TicTacToeBoard[0, 0] == TicTacToeBoard[1, 1] && TicTacToeBoard[1, 1] == TicTacToeBoard[2, 2] && TicTacToeBoard[0, 0] != 0)
+            if (TicTacToeBoard[0, 0] == TicTacToeBoard[1, 1] && TicTacToeBoard[0, 0] == TicTacToeBoard[2, 2] && TicTacToeBoard[0, 0] != 0)
             { //de 3 på tværs fra øverste ventre
-                return true;
+                return TicTacToeBoard[0, 0];
             }
-            if (TicTacToeBoard[0, 2] == TicTacToeBoard[1, 1] && TicTacToeBoard[1, 1] == TicTacToeBoard[2, 0] && TicTacToeBoard[0, 2] != 0)
+            if (TicTacToeBoard[0, 2] == TicTacToeBoard[1, 1] && TicTacToeBoard[0, 2] == TicTacToeBoard[2, 0] && TicTacToeBoard[0, 2] != 0)
             { //de 3 på tværs fra øverste højre
-                return true;
+                return TicTacToeBoard[0, 2];
             }
-            return false;
+            return -1;
         }
         public void placeBrick(int player, int x, int y)
         {
