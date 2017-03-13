@@ -23,7 +23,7 @@ namespace TicTacToeMiniMax
         public void Run()
         {
             RandomPlayer player1 = new RandomPlayer(board, 1);
-            FIFOPlayer player2 = new FIFOPlayer(board, 2);
+            MiniMaxPlayer player2 = new MiniMaxPlayer(board, 2);
 
             for (int i = 0; i < 10; i++)
             {

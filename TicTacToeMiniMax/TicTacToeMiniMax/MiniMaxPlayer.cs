@@ -13,6 +13,13 @@ namespace TicTacToeMiniMax
 
         int[,] tempBoard;
 
+        //variable der holde bedste move
+        int bestMoveX;
+        int bestMoveY;
+        //variable der holder den bedste score
+        int bestScore;
+        int tempScore;
+
         public MiniMaxPlayer(Board board, int player)
         {
             this.board = board;
@@ -21,100 +28,185 @@ namespace TicTacToeMiniMax
 
         public void Play()
         {
-            int count = 0; //min nuværende dybde i træet
-            int maxcount = 0; //skal være max dybden jeg går ned i træet
+            int bestMoveX = -1;
+            int bestMoveY = -1;
+            int bestScore = -999;
+            int tempScpre = -999;
+            tempBoard = board.getTempBoard();
 
             MiniMax(board);
         }
         private void MiniMax(Board board)
         {
-            //variable der holde bedste move
-            int bestMoveX = -1;
-            int bestMoveY = -1;
-            //variable der holder den bedste score
-            int bestScore = -999;
-            int tempScore;
-
             for (int x = 0; x < 3; x++) //find alle mulige træk
             {
                 for (int y = 0; y < 3; y++)
                 {
-                    if (tempBoard[x,y] == 0)
+                    if (tempBoard[x, y] == 0)
                     {
+                        tempBoard[x, y] = player;
                         tempScore = Min();
-                        if (tempScore > bestScore)
+                        if (tempScore < bestScore)
                         {
                             //tjek alle træk på min og sæt best score
                             bestScore = tempScore;
                             bestMoveX = x;
                             bestMoveY = y;
                         }
+                        tempBoard[x, y] = 0;
                     }
                 }
             }
             //lav det bedste træk på boarded
             board.placeBrick(player, bestMoveX, bestMoveY);
-            
+
         }
         private int Min()
         {
-
-        }
-        private int Max()
-        {
-
-        }
-        private int EVAL()
-        {
-            if (checkForWin() == 0)
+            if (DidIWin() == true || DidILoose() == true)
             {
-                return 0;
-            }
-            if (checkForWin() == player)
-            {
-                return -1;
+                return EVAL();
             }
             else
             {
+                for (int x = 0; x < 3; x++)
+                {
+                    for (int y = 0; y < 3; y++)
+                    {
+                        if (tempBoard[x, y] == 0)
+                        {
+                            tempBoard[x, y] = player;
+                            tempScore = Max();
+                            if (tempScore < bestScore)
+                            {
+                                bestScore = tempScore;
+                            }
+                            tempBoard[x, y] = 0;
+                        }
+                    }
+                }
+                return bestScore;
+            }
+        }
+        private int Max()
+        {
+            if (DidIWin() == true || DidILoose() == true)
+            {
+                return EVAL();
+            }
+            else
+            {
+                for (int x = 0; x < 3; x++)
+                {
+                    for (int y = 0; y < 3; y++)
+                    {
+                        if (tempBoard[x, y] == 0)
+                        {
+                            tempBoard[x, y] = player;
+                            tempScore = Min();
+                            if (tempScore > bestScore)
+                            {
+                                bestScore = tempScore;
+                            }
+                            tempBoard[x, y] = 0;
+                        }
+                    }
+                }
+                return bestScore;
+            }
+        }
+        private int EVAL()
+        {
+            if (DidIWin() == true)
+            {
+                return -1;
+            }
+            if (DidILoose() == true)
+            {
                 return 1;
             }
-            
-        }
-        private int checkForWin() //holder ikke styr på turene, så bliver den kaldt i en situation hvos boarded ikke er fyldt og ingen vinder, så fejler den
-        {
-            if (tempBoard[0, 0] == tempBoard[0, 1] && tempBoard[0, 0] == tempBoard[0, 2] && tempBoard[0, 0] != 0)
-            { //de 3 vandret øverste er ens
-                return tempBoard[0, 0];
-            }
-            if (tempBoard[1, 0] == tempBoard[1, 1] && tempBoard[1, 0] == tempBoard[1, 2] && tempBoard[1, 0] != 0)
-            { //de 3  vandret midten er ens
-                return tempBoard[1, 0];
-            }
-            if (tempBoard[2, 0] == tempBoard[2, 1] && tempBoard[2, 0] == tempBoard[2, 2] && tempBoard[2, 0] != 0)
-            { //de 3 vandret nederste er ens
-                return tempBoard[2, 0];
-            }
-            if (tempBoard[0, 0] == tempBoard[1, 0] && tempBoard[0, 0] == tempBoard[2, 0] && tempBoard[0, 0] != 0)
-            { //de 3 til lodret venstre er ens
-                return tempBoard[0, 0];
-            }
-            if (tempBoard[0, 1] == tempBoard[1, 1] && tempBoard[0, 1] == tempBoard[1, 2] && tempBoard[0, 1] != 0)
-            { //de 3 i lodret midten er ens
-                return tempBoard[1, 0];
-            }
-            if (tempBoard[2, 0] == tempBoard[2, 1] && tempBoard[2, 0] == tempBoard[2, 2] && tempBoard[2, 0] != 0)
-            { //de 3 til lodret højre er ens
-                return tempBoard[2, 0];
-            }
-            if (tempBoard[0, 0] == tempBoard[1, 1] && tempBoard[0, 0] == tempBoard[2, 2] && tempBoard[0, 0] != 0)
-            { //de 3 på tværs fra øverste ventre
-                return tempBoard[0, 0];
-            }
-            if (tempBoard[0, 2] == tempBoard[1, 1] && tempBoard[0, 2] == tempBoard[2, 0] && tempBoard[0, 2] != 0)
-            { //de 3 på tværs fra øverste højre
-                return tempBoard[0, 2];
-            }
             return 0;
+
+        }
+        private bool DidIWin() //holder ikke styr på turene, så bliver den kaldt i en situation hvos boarded ikke er fyldt og ingen vinder, så fejler den
+        {
+            if (tempBoard[0, 0] == player && tempBoard[0, 1] == player && tempBoard[0, 2] == player)
+            { //de 3 vandret øverste er ens
+                return true;
+            }
+            if (tempBoard[1, 0] == player && tempBoard[1, 1] == player && tempBoard[1, 2] == player)
+            { //de 3  vandret midten er ens
+                return true;
+            }
+            if (tempBoard[2, 0] == player && tempBoard[2, 1] == player && tempBoard[2, 2] == player)
+            { //de 3 vandret nederste er ens
+                return true;
+            }
+            if (tempBoard[0, 0] == player && tempBoard[1, 0] == player && tempBoard[2, 0] == player)
+            { //de 3 til lodret venstre er ens
+                return true;
+            }
+            if (tempBoard[0, 1] == player && tempBoard[1, 1] == player && tempBoard[1, 2] == player)
+            { //de 3 i lodret midten er ens
+                return true;
+            }
+            if (tempBoard[2, 0] == player && tempBoard[2, 1] == player && tempBoard[2, 2] == player)
+            { //de 3 til lodret højre er ens
+                return true;
+            }
+            if (tempBoard[0, 0] == player && tempBoard[1, 1] == player && tempBoard[2, 2] == player)
+            { //de 3 på tværs fra øverste ventre
+                return true;
+            }
+            if (tempBoard[0, 2] == player && tempBoard[1, 1] == player && tempBoard[2, 0] == player)
+            { //de 3 på tværs fra øverste højre
+                return true;
+            }
+            return false;
+        }
+        private bool DidILoose()
+        {
+            if (tempBoard[0, 0] != player && tempBoard[0, 1] != player && tempBoard[0, 2] != player 
+                && tempBoard[0, 0] != 0 && tempBoard[0, 1] != 0 && tempBoard[0, 2] != 0)
+            { //de 3 vandret øverste er ens
+                return true;
+            }
+            if (tempBoard[1, 0] != player && tempBoard[1, 1] != player && tempBoard[1, 2] != player 
+                && tempBoard[1, 0] != 0 && tempBoard[1, 1] != 0 && tempBoard[1, 2] != 0)
+            { //de 3  vandret midten er ens
+                return true;
+            }
+            if (tempBoard[2, 0] != player && tempBoard[2, 1] != player && tempBoard[2, 2] != player 
+                && tempBoard[2, 0] != 0 && tempBoard[2, 1] != 0 && tempBoard[2, 2] != 0)
+            { //de 3 vandret nederste er ens
+                return true;
+            }
+            if (tempBoard[0, 0] != player && tempBoard[1, 0] != player && tempBoard[2, 0] != player 
+                && tempBoard[0, 0] != 0 && tempBoard[1, 0] != 0 && tempBoard[2, 0] != 0)
+            { //de 3 til lodret venstre er ens
+                return true;
+            }
+            if (tempBoard[0, 1] != player && tempBoard[1, 1] != player && tempBoard[1, 2] != player 
+                && tempBoard[0, 1] != 0 && tempBoard[1, 1] != 0 && tempBoard[1, 2] != 0)
+            { //de 3 i lodret midten er ens
+                return true;
+            }
+            if (tempBoard[2, 0] != player && tempBoard[2, 1] != player && tempBoard[2, 2] != player 
+                && tempBoard[2, 0] != 0 && tempBoard[2, 1] != 0 && tempBoard[2, 2] != 0)
+            { //de 3 til lodret højre er ens
+                return true;
+            }
+            if (tempBoard[0, 0] != player && tempBoard[1, 1] != player && tempBoard[2, 2] != player 
+                && tempBoard[0, 0] != 0 && tempBoard[1, 1] != 0 && tempBoard[2, 2] != 0)
+            { //de 3 på tværs fra øverste ventre
+                return true;
+            }
+            if (tempBoard[0, 2] != player && tempBoard[1, 1] != player && tempBoard[2, 0] != player 
+                && tempBoard[0, 2] != 0 && tempBoard[1, 1] != 0 && tempBoard[2, 0] != 0)
+            { //de 3 på tværs fra øverste højre
+                return true;
+            }
+            return false;
         }
     }
 }
