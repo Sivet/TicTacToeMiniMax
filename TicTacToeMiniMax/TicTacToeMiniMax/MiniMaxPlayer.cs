@@ -66,20 +66,55 @@ namespace TicTacToeMiniMax
         }
         private int EVAL()
         {
-            if (//jeg vinder)
-            {
-                return -1;
-            }
-            if (//modstander vinder)
-            {
-                return 1;
-            }
-            if (//uafgjort)
+            if (checkForWin() == 0)
             {
                 return 0;
             }
+            if (checkForWin() == player)
+            {
+                return -1;
+            }
+            else
+            {
+                return 1;
+            }
             
-            
+        }
+        private int checkForWin() //holder ikke styr på turene, så bliver den kaldt i en situation hvos boarded ikke er fyldt og ingen vinder, så fejler den
+        {
+            if (tempBoard[0, 0] == tempBoard[0, 1] && tempBoard[0, 0] == tempBoard[0, 2] && tempBoard[0, 0] != 0)
+            { //de 3 vandret øverste er ens
+                return tempBoard[0, 0];
+            }
+            if (tempBoard[1, 0] == tempBoard[1, 1] && tempBoard[1, 0] == tempBoard[1, 2] && tempBoard[1, 0] != 0)
+            { //de 3  vandret midten er ens
+                return tempBoard[1, 0];
+            }
+            if (tempBoard[2, 0] == tempBoard[2, 1] && tempBoard[2, 0] == tempBoard[2, 2] && tempBoard[2, 0] != 0)
+            { //de 3 vandret nederste er ens
+                return tempBoard[2, 0];
+            }
+            if (tempBoard[0, 0] == tempBoard[1, 0] && tempBoard[0, 0] == tempBoard[2, 0] && tempBoard[0, 0] != 0)
+            { //de 3 til lodret venstre er ens
+                return tempBoard[0, 0];
+            }
+            if (tempBoard[0, 1] == tempBoard[1, 1] && tempBoard[0, 1] == tempBoard[1, 2] && tempBoard[0, 1] != 0)
+            { //de 3 i lodret midten er ens
+                return tempBoard[1, 0];
+            }
+            if (tempBoard[2, 0] == tempBoard[2, 1] && tempBoard[2, 0] == tempBoard[2, 2] && tempBoard[2, 0] != 0)
+            { //de 3 til lodret højre er ens
+                return tempBoard[2, 0];
+            }
+            if (tempBoard[0, 0] == tempBoard[1, 1] && tempBoard[0, 0] == tempBoard[2, 2] && tempBoard[0, 0] != 0)
+            { //de 3 på tværs fra øverste ventre
+                return tempBoard[0, 0];
+            }
+            if (tempBoard[0, 2] == tempBoard[1, 1] && tempBoard[0, 2] == tempBoard[2, 0] && tempBoard[0, 2] != 0)
+            { //de 3 på tværs fra øverste højre
+                return tempBoard[0, 2];
+            }
+            return 0;
         }
     }
 }
