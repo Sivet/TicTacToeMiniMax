@@ -20,7 +20,7 @@ namespace TicTacToeMiniMax
         }
         public void Play()
         {
-            tempBoard = board.getBoard();
+            tempBoard = board.getTempBoard();
             rand = new Random();
 
             for (int x = 0; x <= 2; x++)
@@ -35,20 +35,7 @@ namespace TicTacToeMiniMax
                 }
             }
             done:;
-
-            //while (true)
-            //{
-            //    x = rand.Next(0, 2);
-            //    y = rand.Next(0, 2);
-            //    if (tempBoard[x, y] == 0)
-            //    {
-            //        board.placeBrick(player, x, y);
-            //        break;
-
-            //    }
-            //}
             
-
         }
     }
 }
