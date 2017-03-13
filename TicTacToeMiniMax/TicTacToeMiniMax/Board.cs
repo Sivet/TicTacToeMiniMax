@@ -34,7 +34,7 @@ namespace TicTacToeMiniMax
             }
             return tempBoard;
         }
-        public int checkForWin()
+        public int checkForWin(int turn)
         {
             if (TicTacToeBoard[0, 0] == TicTacToeBoard[0, 1] && TicTacToeBoard[0, 0] == TicTacToeBoard[0, 2] && TicTacToeBoard[0, 0] != 0)
             { //de 3 vandret øverste er ens
@@ -67,6 +67,10 @@ namespace TicTacToeMiniMax
             if (TicTacToeBoard[0, 2] == TicTacToeBoard[1, 1] && TicTacToeBoard[0, 2] == TicTacToeBoard[2, 0] && TicTacToeBoard[0, 2] != 0)
             { //de 3 på tværs fra øverste højre
                 return TicTacToeBoard[0, 2];
+            }
+            if (turn == 9)
+            {
+                return 0;
             }
             return -1;
         }

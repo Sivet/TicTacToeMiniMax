@@ -28,30 +28,27 @@ namespace TicTacToeMiniMax
             for (int i = 0; i < 10; i++)
             {
                 int turnCounter = 0;
-                while (board.checkForWin() == -1)
+                while (board.checkForWin(turnCounter) == -1)
                 {
                     player1.Play();
-                    if (board.checkForWin() != -1)
+                    if (board.checkForWin(turnCounter) != -1)
                     {
                         break;
                     }
                     player2.Play();
                     turnCounter++;
-                    if (turnCounter == 9)
-                    {
-                        break;
-                    }
+                    
                 }
 
-                if (board.checkForWin() == 1)
+                if (board.checkForWin(turnCounter) == 1)
                 {
                     player1Wins++;
                 }
-                if (board.checkForWin() == 2)
+                if (board.checkForWin(turnCounter) == 2)
                 {
                     player2Wins++;
                 }
-                if (board.checkForWin() == -1)
+                if (board.checkForWin(turnCounter) == -1)
                 {
                     drawWin++;
                 }
