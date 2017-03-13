@@ -9,8 +9,7 @@ namespace TicTacToeMiniMax
     class FIFOPlayer
     {
         Board board;
-        Random rand;
-        int x, y, player;
+        int player;
         int[,] tempBoard;
 
         public FIFOPlayer(Board board, int player)
@@ -21,7 +20,6 @@ namespace TicTacToeMiniMax
         public void Play()
         {
             tempBoard = board.getTempBoard();
-            rand = new Random();
 
             for (int x = 0; x <= 2; x++)
             {
