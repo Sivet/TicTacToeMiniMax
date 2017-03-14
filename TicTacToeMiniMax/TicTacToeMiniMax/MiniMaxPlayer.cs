@@ -18,7 +18,6 @@ namespace TicTacToeMiniMax
         int bestMoveY;
         //variable der holder den bedste score
         int bestScore;
-        int tempScore;
 
         public MiniMaxPlayer(Board board, int player)
         {
@@ -28,10 +27,10 @@ namespace TicTacToeMiniMax
 
         public void Play()
         {
-            int bestMoveX = -1;
-            int bestMoveY = -1;
-            int bestScore = -999;
-            int tempScpre = -999;
+            bestMoveX = -1;
+            bestMoveY = -1;
+            bestScore = 999;
+            //tempScore = -999;
             tempBoard = board.getTempBoard();
 
             MiniMax(board);
@@ -45,7 +44,7 @@ namespace TicTacToeMiniMax
                     if (tempBoard[x, y] == 0)
                     {
                         tempBoard[x, y] = player;
-                        tempScore = Min();
+                        int tempScore = Min();
                         if (tempScore < bestScore)
                         {
                             //tjek alle træk på min og sæt best score
@@ -69,6 +68,7 @@ namespace TicTacToeMiniMax
             }
             else
             {
+                int bestScore = 999;
                 for (int x = 0; x < 3; x++)
                 {
                     for (int y = 0; y < 3; y++)
@@ -76,7 +76,7 @@ namespace TicTacToeMiniMax
                         if (tempBoard[x, y] == 0)
                         {
                             tempBoard[x, y] = 1; //det skal da være den her som rykker modstanderen, ellers rykker jeg to gange jo...
-                            tempScore = Max();
+                            int tempScore = Max();
                             if (tempScore < bestScore)
                             {
                                 bestScore = tempScore;
@@ -96,6 +96,7 @@ namespace TicTacToeMiniMax
             }
             else
             {
+                int bestScore = -999;
                 for (int x = 0; x < 3; x++)
                 {
                     for (int y = 0; y < 3; y++)
@@ -103,7 +104,7 @@ namespace TicTacToeMiniMax
                         if (tempBoard[x, y] == 0)
                         {
                             tempBoard[x, y] = player;
-                            tempScore = Min();
+                            int tempScore = Min();
                             if (tempScore > bestScore)
                             {
                                 bestScore = tempScore;
@@ -150,7 +151,7 @@ namespace TicTacToeMiniMax
             { //de 3 i lodret midten er ens
                 return true;
             }
-            if (tempBoard[2, 0] == player && tempBoard[2, 1] == player && tempBoard[2, 2] == player)
+            if (tempBoard[0, 2] == player && tempBoard[1, 2] == player && tempBoard[2, 2] == player)
             { //de 3 til lodret højre er ens
                 return true;
             }
@@ -191,8 +192,8 @@ namespace TicTacToeMiniMax
             { //de 3 i lodret midten er ens
                 return true;
             }
-            if (tempBoard[2, 0] != player && tempBoard[2, 1] != player && tempBoard[2, 2] != player 
-                && tempBoard[2, 0] != 0 && tempBoard[2, 1] != 0 && tempBoard[2, 2] != 0)
+            if (tempBoard[0, 2] != player && tempBoard[1, 2] != player && tempBoard[2, 2] != player 
+                && tempBoard[0, 2] != 0 && tempBoard[1, 2] != 0 && tempBoard[2, 2] != 0)
             { //de 3 til lodret højre er ens
                 return true;
             }

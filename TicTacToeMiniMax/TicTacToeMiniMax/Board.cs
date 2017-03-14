@@ -56,7 +56,7 @@ namespace TicTacToeMiniMax
             { //de 3 i lodret midten er ens
                 return TicTacToeBoard[1, 0];
             }
-            if (TicTacToeBoard[2, 0] == TicTacToeBoard[2, 1] && TicTacToeBoard[2, 0] == TicTacToeBoard[2, 2] && TicTacToeBoard[2, 0] != 0)
+            if (TicTacToeBoard[0, 2] == TicTacToeBoard[1, 2] && TicTacToeBoard[0, 2] == TicTacToeBoard[2, 2] && TicTacToeBoard[0, 2] != 0)
             { //de 3 til lodret højre er ens
                 return TicTacToeBoard[2, 0];
             }

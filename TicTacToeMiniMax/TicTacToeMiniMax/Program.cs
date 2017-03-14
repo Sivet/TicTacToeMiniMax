@@ -31,6 +31,7 @@ namespace TicTacToeMiniMax
                 while (board.checkForWin(turnCounter) == -1)
                 {
                     player1.Play();
+                    turnCounter++;
                     if (board.checkForWin(turnCounter) != -1)
                     {
                         break;
