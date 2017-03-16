@@ -25,7 +25,7 @@ namespace TicTacToeMiniMax
             RandomPlayer player1 = new RandomPlayer(board, 1);
             MiniMaxPlayer player2 = new MiniMaxPlayer(board, 2);
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 int turnCounter = 0;
                 while (board.checkForWin(turnCounter) == -1)
