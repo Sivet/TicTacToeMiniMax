@@ -20,7 +20,6 @@ namespace TicTacToeMiniMax
         //variable der holder den bedste score
         int bestScore;
         
-
         public MiniMaxPlayer(Board board, int player)
         {
             this.board = board;
@@ -44,6 +43,7 @@ namespace TicTacToeMiniMax
             tempBoard = board.getTempBoard();
 
             MiniMax(board);
+            //tager jeg nogensinde et move????
         }
         private void MiniMax(Board board)
         {
